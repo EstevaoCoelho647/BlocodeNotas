@@ -3,18 +3,26 @@
     package="com.sqisland.android.advanced_textview" >
 
     <application
+        android:name=".NoteManagerApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
+            android:name=".List_notes_activity"
+            android:label="Bloco de Notas">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
+            <activity
             android:name=".LinedPaperActivity"
             android:label="Bloco de Notas">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
+
+
+
     </application>
 
 </manifest>

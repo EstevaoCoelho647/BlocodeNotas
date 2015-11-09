@@ -2,4 +2,6 @@
 <resources>
     <color name="paper_background">#ffe3aa</color>
     <color name="paper_line">#aa8539</color>
+    <color name="accent">#aa8539</color>
+
 </resources>

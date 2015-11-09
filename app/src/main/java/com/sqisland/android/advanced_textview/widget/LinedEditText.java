@@ -43,6 +43,7 @@ public class LinedEditText extends EditText {
         for (int i = 0; i < getLineCount(); ++i) {
             float y = offsetY + getLineHeight() * i;
             canvas.drawLine(startX, y, stopX, y, paint);
+            canvas.drawLine(startX, y, stopX, y, paint);
         }
 
         super.onDraw(canvas);
