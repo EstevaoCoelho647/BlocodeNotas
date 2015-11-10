@@ -27,7 +27,7 @@ public class Notes {
 
     @Override
     public String toString() {
-        return title;
+        return id + " " + title;
     }
 
     public void setTitle(String title) {
