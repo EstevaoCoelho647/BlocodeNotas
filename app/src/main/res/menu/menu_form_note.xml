@@ -5,8 +5,15 @@
 
     <item
         android:id="@+id/add"
-        android:orderInCategory="100"
         android:icon="@drawable/ic_action_v"
         app:showAsAction="always"
-        tools:ignore="MenuTitle" />
+        android:title="" />
+
+    <item
+        android:id="@+id/config"
+        android:icon="@drawable/ic_action_config"
+        app:showAsAction="always"
+        android:title="" />
+
+
 </menu>

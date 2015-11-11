@@ -1,14 +1,20 @@
 package com.sqisland.android.advanced_textview.controller.activities;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.sqisland.android.advanced_textview.R;
@@ -21,6 +27,10 @@ public class FormNotesActivity extends AppCompatActivity {
     EditText text;
     EditText title;
     Toolbar actionBar;
+    NumberPicker np;
+    Button btnSave;
+    private int font = 22;
+    Dialog dialog = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +56,14 @@ public class FormNotesActivity extends AppCompatActivity {
 
     private void bindEditTextText() {
         text = (EditText) findViewById(R.id.text);
+        text.setText(note.getText() == null ? "\n\n\n\n\n\n" : note.getText());
+        text.setTextSize(font);
     }
 
     private void bindEditTextTitle() {
         title = (EditText) findViewById(R.id.title);
+        title.setText(note.getTitle() == null ? "" : note.getTitle());
+        title.setTextSize(font+4);
     }
 
     @Override
@@ -58,11 +72,45 @@ public class FormNotesActivity extends AppCompatActivity {
             bindNote();
             NoteRepository.save(note);
             Toast.makeText(FormNotesActivity.this, "Nota Adicionada", Toast.LENGTH_SHORT).show();
-
             finish();
         }
+        if (item.getItemId() == R.id.config){
+            LayoutInflater view = getLayoutInflater();
+            View dialoglayout = view.inflate(R.layout.config_layout, null);
+            dialog = new Dialog(FormNotesActivity.this);
+            dialog.setContentView(dialoglayout);
+            dialog.setTitle("Configurações");
+
+            binItens(dialog);
+            verificaClick(dialog);
+
+        }
+
         return super.onOptionsItemSelected(item);
     }
+
+    private void verificaClick(Dialog dialog) {
+        dialog.show();
+    }
+
+    private void binItens(Dialog dialog) {
+        final Dialog ndialog = dialog;
+        btnSave = (Button) dialog.findViewById(R.id.button);
+        btnSave.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                font = np.getValue();
+                bindEditTextTitle();
+                bindEditTextText();
+                ndialog.cancel();
+            }
+        });
+        np = (NumberPicker) dialog.findViewById(R.id.numberPicker1);
+        np.setMinValue(12);
+        np.setMaxValue(36);
+        np.setValue(font);
+    }
+
 
     private void initNote() {
         Bundle values = getIntent().getExtras();
@@ -76,4 +124,5 @@ public class FormNotesActivity extends AppCompatActivity {
         note.setText(text.getText().toString());
         note.setTitle(title.getText().toString());
     }
+
 }
